@@ -1,0 +1,21 @@
+<ion-app [class.player-fullscreen]="showFullscreenSection === true" [class.hidden]="showFullscreenSection === true" class="lg:flex">
+  <div [class.player-shown]="playerShown === true" class="flex flex-col h-screen" [class.side-menu-shown]="sideMenuShown === true">
+    <header id="top-navigation">
+      <app-navigation></app-navigation>
+    </header>
+
+    <main class="flex-1 py-4 bg-gray-900" id="main-content">
+      <ion-router-outlet></ion-router-outlet>
+    </main>
+
+    <footer id="main-footer">
+      <app-now-playing-bar></app-now-playing-bar>
+    </footer>
+    <section id="fullscreen-overlay"></section>
+  </div>
+</ion-app>
+
+<section id="fullscreen-player">
+  <app-fullscreen-player></app-fullscreen-player>
+</section>
+

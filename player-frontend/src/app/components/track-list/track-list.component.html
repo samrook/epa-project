@@ -1,0 +1,35 @@
+<ul>
+  <!-- <ng-container *ngFor="let i of [].constructor(100)"> -->
+  <ng-container *ngIf="songList !== null && songList.length > 0">
+    <li *ngFor="let song of songList" class="relative text-gray-800 border-b" (click)="playSong(song)">
+      <div class="flex">
+        <div class="lg:p-4">
+          <img class="w-20 h-20 lg:w-16 lg:h-16" alt="{{ song.album.name }}" src="{{ song?.album?.image_path || '../../../assets/images/default_album_cover.png' }}">
+        </div>
+        <div class="flex flex-col justify-center flex-1 ml-3 h-100">
+          <p class="text-sm font-bold line-clamp-1">{{ song.title }}</p>
+          <a [routerLink]="getSubtitleLink(song)" (click)="$event.stopPropagation()" class="inline-flex overflow-hidden text-xs text-gray-400 hover:underline">{{ song.album.name || song.artist.name }}</a>
+        </div>
+        <div (click)="toggleMoreOptions(song); $event.stopPropagation()" class="flex items-center justify-end w-10 h-100">
+          <svg aria-hidden="true" class="w-6 h-6 fill-current sm:mr-3" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"></path></svg>
+        </div>
+      </div>
+      <div
+        [class.block]="song.dropdownShown === true"
+        [class.hidden]="song.dropdownShown === undefined || song.dropdownShown === null || song.dropdownShown === false"
+        class="absolute right-0 z-10 w-56 -mt-4 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        (clickOutside)="closeMoreOptions(song); $event.stopPropagation();"
+        role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
+      >
+        <div class="py-1" role="none">
+          <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+          <div *ngIf="isPlayList === false" (click)="addTrackToPlaylist(song); $event.stopPropagation()" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer">Add To Playlist</div>
+          <div *ngIf="isPlayList === true" (click)="removeTrackFromPlaylist(song); $event.stopPropagation()" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer">Remove From Playlist</div>
+        </div>
+      </div>
+    </li>
+  </ng-container>
+  <div *ngIf="songList === null || songList.length === 0" class="p-4">
+    There are no tracks to show.
+  </div>
+</ul>

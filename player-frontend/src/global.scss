@@ -1,0 +1,58 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+@tailwind base;
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+@tailwind components;
+
+@tailwind utilities;
+
+:not(.modal-wrapper) > .ion-page:not(ion-app) {
+  margin-top: 3rem; // header height
+}
+
+.player-shown .ion-page:not(ion-app) {
+  margin-bottom: 5rem; // footer height
+}
+
+.player-shown ion-header {
+  z-index: 12;
+}
+.fullscreen-overlay {
+  display: none;
+}
+.side-menu-shown {
+  position: relative;
+}
+.side-menu-shown .fullscreen-overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+}
+
+@media screen and (min-width: 1024px) {
+  .player-shown .ion-page:not(ion-app) {
+    margin-bottom: 6rem; // footer height
+  }
+}

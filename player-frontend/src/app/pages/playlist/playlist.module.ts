@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { PlaylistPageRoutingModule } from './playlist-routing.module';
+
+import { PlaylistPage } from './playlist.page';
+import { TrackListComponent } from '../../components/track-list/track-list.component';
+import { SharedModule } from '../../shared/shared/shared.module';
+
+@NgModule({
+  imports: [
+    SharedModule,
+    PlaylistPageRoutingModule
+  ],
+  declarations: [PlaylistPage]
+})
+export class PlaylistPageModule {}

@@ -1,0 +1,33 @@
+created:
+    - app/Http/Controllers/SongController.php
+    - app/Http/Controllers/AlbumController.php
+    - app/Http/Controllers/ArtistController.php
+    - app/Http/Controllers/PlaylistController.php
+    - app/Http/Controllers/HomeController.php
+    - database/factories/SongFactory.php
+    - database/factories/AlbumFactory.php
+    - database/factories/ArtistFactory.php
+    - database/factories/PlaylistFactory.php
+    - app/Models/Song.php
+    - app/Models/Album.php
+    - app/Models/Artist.php
+    - app/Models/Playlist.php
+    - tests/Feature/Http/Controllers/SongControllerTest.php
+    - tests/Feature/Http/Controllers/AlbumControllerTest.php
+    - tests/Feature/Http/Controllers/ArtistControllerTest.php
+    - tests/Feature/Http/Controllers/PlaylistControllerTest.php
+    - tests/Feature/Http/Controllers/HomeControllerTest.php
+updated:
+    - database/migrations/2021_04_13_095055_create_songs_table.php
+    - database/migrations/2021_04_13_095056_create_albums_table.php
+    - database/migrations/2021_04_13_095057_create_artists_table.php
+    - database/migrations/2021_04_13_095058_create_playlists_table.php
+    - database/migrations/2021_04_13_095059_create_playlist_song_table.php
+    - routes/api.php
+    - routes/web.php
+models:
+    Models\User: {  }
+    Song: { title: 'string index', album_id: 'id foreign', artist_id: 'id foreign nullable', track_no: 'unsignedInteger nullable', runtime: 'unsignedInteger nullable', release_date: 'date nullable', song_path: 'text nullable', timestamps: timestamps, relationships: { belongsToMany: Playlist } }
+    Album: { name: 'string index', artist_id: 'id foreign', release_date: 'date nullable', image_path: 'text nullable', timestamps: timestamps, relationships: { hasMany: Song } }
+    Artist: { name: 'string index', image_path: 'text nullable', timestamps: timestamps, relationships: { hasMany: 'Album, Song' } }
+    Playlist: { name: 'string index', image_path: 'text nullable', timestamps: timestamps, relationships: { belongsToMany: Song } }

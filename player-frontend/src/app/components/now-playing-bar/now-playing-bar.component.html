@@ -1,0 +1,42 @@
+<ion-footer>
+  <div [class.flex]="playerShown === true" [class.hidden]="playerShown === false" class="justify-between h-20 text-gray-200 bg-gray-900 lg:h-24">
+    <div class="p-2 lg:p-0">
+      <img class="w-16 h-16 lg:w-24 lg:h-24" alt="Oasis - Definitely Maybe" src="../../../assets/images/default_album_cover.png">
+    </div>
+    <div class="flex flex-col justify-center flex-1 pr-4 ml-1 lg:ml-3 lg:flex-initial h-100 lg:w-1/5">
+      <p class="text-sm font-bold lg:text-base">{{ nowPlaying?.title }}</p>
+      <p class="overflow-hidden text-[0.7rem] text-gray-400 lg:text-sm">{{ nowPlaying?.album.name || nowPlaying?.artist.name }}</p>
+    </div>
+    <div class="justify-center flex-1 hidden h-full lg:flex lg:flex-col">
+      <div class="relative flex justify-center w-full space-x-6">
+        <!-- repeat icon -->
+        <svg (click)="toggleLoopMode()" [class.border-b-2]="loopModeEnabled === true" [class.-mb-4]="loopModeEnabled === true" class="w-5 h-5 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256c0 88.224-71.775 160-160 160H170.067l34.512 32.419c9.875 9.276 10.119 24.883.539 34.464l-10.775 10.775c-9.373 9.372-24.568 9.372-33.941 0l-92.686-92.686c-9.373-9.373-9.373-24.568 0-33.941l92.686-92.686c9.373-9.373 24.568-9.373 33.941 0l10.775 10.775c9.581 9.581 9.337 25.187-.539 34.464L170.067 352H352c52.935 0 96-43.065 96-96 0-13.958-2.996-27.228-8.376-39.204-4.061-9.039-2.284-19.626 4.723-26.633l12.183-12.183c11.499-11.499 30.965-8.526 38.312 5.982C505.814 205.624 512 230.103 512 256zM72.376 295.204C66.996 283.228 64 269.958 64 256c0-52.935 43.065-96 96-96h181.933l-34.512 32.419c-9.875 9.276-10.119 24.883-.539 34.464l10.775 10.775c9.373 9.372 24.568 9.372 33.941 0l92.686-92.686c9.373-9.373 9.373-24.568 0-33.941l-92.686-92.686c-9.373-9.373-24.568-9.373-33.941 0L306.882 29.12c-9.581 9.581-9.337 25.187.539 34.464L341.933 96H160C71.775 96 0 167.776 0 256c0 25.897 6.186 50.376 17.157 72.039 7.347 14.508 26.813 17.481 38.312 5.982l12.183-12.183c7.008-7.008 8.786-17.595 4.724-26.634z"/></svg>
+        <!-- step backward icon -->
+        <svg (click)="previousTrack()" class="w-5 h-5 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 468V44c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v176.4l195.5-181C352.1 22.3 384 36.6 384 64v384c0 27.4-31.9 41.7-52.5 24.6L136 292.7V468c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12z"/></svg>
+        <!-- Play icon -->
+        <svg *ngIf="trackPlaying === false" (click)="resumeTrack()" class="w-5 h-5 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
+        <!-- Pause icon -->
+        <svg *ngIf="trackPlaying === true" (click)="pauseTrack()" class="w-5 h-5 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"></path></svg>
+        <!-- step forward icon -->
+        <svg (click)="nextTrack()" class="w-5 h-5 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M384 44v424c0 6.6-5.4 12-12 12h-48c-6.6 0-12-5.4-12-12V291.6l-195.5 181C95.9 489.7 64 475.4 64 448V64c0-27.4 31.9-41.7 52.5-24.6L312 219.3V44c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12z"/></svg>
+        <!-- shuffle icon -->
+        <svg (click)="toggleShuffleMode()" [class.border-b-2]="shuffleModeEnabled === true" [class.-mb-4]="shuffleModeEnabled === true" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504.971 359.029c9.373 9.373 9.373 24.569 0 33.941l-80 79.984c-15.01 15.01-40.971 4.49-40.971-16.971V416h-58.785a12.004 12.004 0 0 1-8.773-3.812l-70.556-75.596 53.333-57.143L352 336h32v-39.981c0-21.438 25.943-31.998 40.971-16.971l80 79.981zM12 176h84l52.781 56.551 53.333-57.143-70.556-75.596A11.999 11.999 0 0 0 122.785 96H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12zm372 0v39.984c0 21.46 25.961 31.98 40.971 16.971l80-79.984c9.373-9.373 9.373-24.569 0-33.941l-80-79.981C409.943 24.021 384 34.582 384 56.019V96h-58.785a12.004 12.004 0 0 0-8.773 3.812L96 336H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h110.785c3.326 0 6.503-1.381 8.773-3.812L352 176h32z"></path></svg>
+      </div>
+      <div class="flex justify-center mt-4">
+        <span class="text-base text-white">{{ Math.floor(nowPlayingPosition / 60) }}:{{ Math.round(nowPlayingPosition % 60).toString().padStart(2, '0') }}</span>
+        <input #range type="range" (input)="rangeValueChange(range)" [max]="nowPlayingDuration" [value]="nowPlayingPosition" class="w-1/2 mx-4">
+        <span class="text-base text-white">{{ Math.floor(nowPlayingDuration / 60) }}:{{ Math.round(nowPlayingDuration % 60).toString().padStart(2, '0') }}</span>
+      </div>
+    </div>
+    <div class="h-full lg:hidden">
+      <div class="flex items-center h-full py-6 pr-2">
+        <!-- Play icon -->
+        <svg *ngIf="trackPlaying === false" (click)="resumeTrack()" class="w-6 h-6 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
+        <!-- Pause icon -->
+        <svg *ngIf="trackPlaying === true" (click)="pauseTrack()" class="w-6 h-6 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"></path></svg>
+        <!-- Vertical Elipses icon -->
+        <svg (click)="showFullscreenPlayer()" class="w-6 h-6 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"></path></svg>
+      </div>
+    </div>
+  </div>
+</ion-footer>
